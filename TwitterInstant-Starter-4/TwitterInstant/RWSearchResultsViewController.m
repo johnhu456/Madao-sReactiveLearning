@@ -44,14 +44,33 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  static NSString *CellIdentifier = @"Cell";
-  RWTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"Cell";
+    RWTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
   
-  RWTweet *tweet = self.tweets[indexPath.row];
-  cell.twitterStatusText.text = tweet.status;
-  cell.twitterUsernameText.text = [NSString stringWithFormat:@"@%@",tweet.username];
+    RWTweet *tweet = self.tweets[indexPath.row];
+    cell.twitterStatusText.text = tweet.status;
+    if (!cell.twitterAvatarView.image){
+        [[[self signalForGetImageWithUrl:tweet.profileImageUrl]
+          deliverOn:[RACScheduler mainThreadScheduler]]
+         subscribeNext:^(UIImage *image) {
+             cell.twitterAvatarView.image = image;
+         }];
+    }
+    cell.twitterUsernameText.text = [NSString stringWithFormat:@"@%@",tweet.username];
   
-  return cell;
+    return cell;
 }
 
+/**获取图片的信号*/
+- (RACSignal *)signalForGetImageWithUrl:(NSString *)url{
+    RACScheduler *imageScheduler = [RACScheduler schedulerWithPriority:RACSchedulerPriorityBackground];
+    return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+        UIImage *image = [UIImage imageWithData:imageData];
+        [subscriber sendNext:image];
+        [subscriber sendCompleted];
+        return nil;
+    }]
+            subscribeOn:imageScheduler];
+}
 @end

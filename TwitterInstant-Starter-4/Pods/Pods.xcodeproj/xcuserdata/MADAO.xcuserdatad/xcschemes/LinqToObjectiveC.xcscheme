@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "36F92B69D98D813E0F95107F98C9B725"
-               BuildableName = "libPods.a"
-               BlueprintName = "Pods"
+               BlueprintIdentifier = "E84B8811FCA99973072222CA3E833D26"
+               BuildableName = "libLinqToObjectiveC.a"
+               BlueprintName = "LinqToObjectiveC"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "36F92B69D98D813E0F95107F98C9B725"
-            BuildableName = "libPods.a"
-            BlueprintName = "Pods"
+            BlueprintIdentifier = "E84B8811FCA99973072222CA3E833D26"
+            BuildableName = "libLinqToObjectiveC.a"
+            BlueprintName = "LinqToObjectiveC"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

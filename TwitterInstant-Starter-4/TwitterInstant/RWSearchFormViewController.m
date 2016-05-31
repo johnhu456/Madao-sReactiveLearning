@@ -11,6 +11,8 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
+#import "RWTweet.h"
+#import <NSArray+LinqExtensions.h>
 #import "FHTool.h"
 
 typedef NS_ENUM(NSInteger){
@@ -51,20 +53,29 @@ static NSString *const RWTwitterInstantDomian = @"TWitterInstant";
     
     @WEAKSELF;
     //搜索Signal
-    [[[[[self requestAccessForTwitterSignal] then:^RACSignal *{
+    [[[[[[[self requestAccessForTwitterSignal] then:^RACSignal *{
         return weakSelf.searchText.rac_textSignal;
     }]
     filter:^BOOL(NSString *text) {
         return text.length > 3;
     }]
+       //延迟
+    throttle:0.5]
     flattenMap:^RACStream *(NSString *text) {
         return [weakSelf siganlForSearchRequestWithText:text];
     }]
-    subscribeNext:^(id x) {
-        NSLog(@"%@",x);
+     /**回主线程*/
+    deliverOn:[RACScheduler mainThreadScheduler]]
+    subscribeNext:^(NSDictionary *jsonSearchResult) {
+        NSArray *statues = jsonSearchResult[@"statuses"];
+        NSArray *tweets = [statues linq_select:^id(id tweet) {
+            return [RWTweet tweetWithStatus:tweet];
+        }];
+        [self.resultsViewController displayTweets:tweets];
     } error:^(NSError *error) {
         NSLog(@"%@",error);
     }];
+    
     /**处理输入框颜色的Signal*/
     [[self.searchText.rac_textSignal map:^id(NSString *text) {
         return @(text.length>3);
@@ -141,7 +152,6 @@ static NSString *const RWTwitterInstantDomian = @"TWitterInstant";
         return nil;
     }];
 }
-
 - (void)styleTextField:(UITextField *)textField {
   CALayer *textFieldLayer = textField.layer;
   textFieldLayer.borderColor = [UIColor grayColor].CGColor;
