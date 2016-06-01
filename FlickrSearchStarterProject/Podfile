@@ -1,0 +1,8 @@
+platform :ios, '7.0'
+target 'RWTFlickrSearch' do
+  pod 'ReactiveCocoa'
+  pod 'objectiveflickr'
+  pod 'LinqToObjectiveC'
+  pod 'SDWebImage'
+end
+
