@@ -10,4 +10,10 @@
 
 @interface RWTFlickrSearchResults : NSObject
 
+@property (nonatomic, strong) NSString *searchString;
+
+@property (nonatomic, strong) NSArray *photos;
+
+@property (nonatomic) NSInteger totalResults;
+
 @end
