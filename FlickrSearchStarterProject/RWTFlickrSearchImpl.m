@@ -51,7 +51,7 @@ static NSString *const kFlickrSharedSecret = @"0e2bd84b24295abf";
             photo.url = [self.flickrContext photoSourceURLFromDictionary:value size:OFFlickrSmallSize];
             return photo;
         }];
-        return photos;
+        return searchResults;
     }];
 }
 

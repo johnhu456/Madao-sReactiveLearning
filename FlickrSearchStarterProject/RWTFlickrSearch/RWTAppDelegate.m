@@ -42,7 +42,7 @@
 }
 
 - (UIViewController *)createInitialViewController {
-    self.servicesImp = [[RWTViewModelServicesImp alloc] init];
+    self.servicesImp = [[RWTViewModelServicesImp alloc] initWithNavigationController:self.navigationController];
     self.viewModel = [[RWTFlickrSearchViewModel alloc] initWithServices:self.servicesImp];
     return [[RWTFlickrSearchViewController alloc] initWithViewModel:self.viewModel];
 }

@@ -10,8 +10,17 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *searchResultsTable;
 
+@property (nonatomic, weak) RWTFlickrSearchResultsViewModel *searchResultsModel;
+
 @end
 
 @implementation RWTSearchResultsViewController
 
+- (instancetype)initWithViewModel:(RWTFlickrSearchResultsViewModel *)viewModel
+{
+    if (self = [super init]){
+        _searchResultsModel = viewModel;
+    }
+    return self;
+}
 @end

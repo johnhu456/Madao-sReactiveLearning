@@ -7,6 +7,8 @@
 //
 
 #import "RWTFlickrSearchViewModel.h"
+#import "RWTFlickrSearchResultsViewModel.h"
+#import "FHTool.h"
 
 @interface RWTFlickrSearchViewModel()
 
@@ -41,6 +43,10 @@
 }
 
 - (RACSignal *)excuteSearchSignal{
-    return [[[self.services getFlickrSearchService] flickrSearchSignal:self.searchText] logAll];
+    @WEAKSELF;
+    return [[[self.services getFlickrSearchService] flickrSearchSignal:self.searchText] doNext:^(id result) {
+        RWTFlickrSearchResultsViewModel *resultsViewModel = [[RWTFlickrSearchResultsViewModel alloc] initWithSearchResults:result services:weakSelf.services];
+        [weakSelf.services pushViewModel:resultsViewModel];
+    }];
 }
 @end
