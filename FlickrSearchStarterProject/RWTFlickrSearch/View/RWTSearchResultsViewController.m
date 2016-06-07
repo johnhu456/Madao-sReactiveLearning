@@ -4,16 +4,19 @@
 //
 
 #import "RWTSearchResultsViewController.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
+#import "RWTSearchResultsTableViewCell.h"
 #import "CETableViewBindingHelper.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface RWTSearchResultsViewController ()
+@interface RWTSearchResultsViewController () <UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *searchResultsTable;
 
 @property (nonatomic, strong) RWTFlickrSearchResultsViewModel *searchResultsModel;
 
 @property (nonatomic, strong) CETableViewBindingHelper *bindingHelper;
+
+@property (nonatomic, assign) CGFloat lastContentOffSetY;
 
 @end
 
@@ -33,6 +36,7 @@
 //    [self.searchResultsTable registerClass:[UITableViewCell class]  forCellReuseIdentifier:@"cell"];
 //    self.searchResultsTable.dataSource = self;
     [self bindViewModel];
+    self.lastContentOffSetY = 64.f;
 }
 
 - (void)bindViewModel
@@ -40,23 +44,21 @@
     self.title = self.searchResultsModel.title;
     UINib *nib = [UINib nibWithNibName:@"RWTSearchResultsTableViewCell" bundle:nil];
     self.bindingHelper = [CETableViewBindingHelper bindingHelperForTableView:self.searchResultsTable sourceSignal:RACObserve(self.searchResultsModel, searchResults) selectionCommand:nil templateCell:nib];
+    self.bindingHelper.delegate = self;
 }
 
-//#pragma mark - UITableViewDataSource
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    return 1;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    return self.searchResultsModel.searchResults.count;
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-//    cell.textLabel.text = [self.searchResultsModel.searchResults[indexPath.row] title];
-//    return cell;
-//}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    NSArray *cells = [self.searchResultsTable visibleCells];
+    for (RWTSearchResultsTableViewCell *cell in cells) {
+        CGFloat value;
+        if (self.lastContentOffSetY < self.searchResultsTable.contentOffset.y){
+            value = -40 + (cell.frame.origin.y - self.searchResultsTable.contentOffset.y)/5;
+        }else
+        {
+            value = (self.searchResultsTable.contentOffset.y - cell.frame.origin.y)/5;
+        }
+        self.lastContentOffSetY = self.searchResultsTable.contentOffset.y;
+        [cell setParallax:value];
+    }
+}
 @end

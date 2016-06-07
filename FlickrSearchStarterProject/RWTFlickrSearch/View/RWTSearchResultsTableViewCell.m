@@ -19,11 +19,17 @@
 
 @implementation RWTSearchResultsTableViewCell
 
+- (void)setParallax:(CGFloat)value
+{
+    self.imageThumbnailView.transform = CGAffineTransformMakeTranslation(0, value);
+}
+
 - (void)bindViewModel:(id)viewModel
 {
     RWTFlickrPhoto *photo = viewModel;
     self.titleLabel.text = photo.title;
-    self.imageThumbnailView.contentMode = UIViewContentModeScaleToFill;
+    self.imageThumbnailView.layer.masksToBounds = YES;
+    self.imageThumbnailView.contentMode = UIViewContentModeScaleAspectFill;
     [self.imageThumbnailView setImageWithURL:photo.url];
 }
 

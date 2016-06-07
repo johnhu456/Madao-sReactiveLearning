@@ -17,11 +17,11 @@
                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="h6B-cc-F9Y">
                         <rect key="frame" x="142" y="81" width="37" height="37"/>
                     </activityIndicatorView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V9j-dS-aVT">
-                        <rect key="frame" x="0.0" y="-40" width="320" height="280"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V9j-dS-aVT">
+                        <rect key="frame" x="0.0" y="-40" width="320" height="245"/>
                     </imageView>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-mC-Y1P">
-                        <rect key="frame" x="0.0" y="173" width="320" height="33"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-mC-Y1P">
+                        <rect key="frame" x="0.0" y="172" width="320" height="33"/>
                         <subviews>
                             <view alpha="0.49999999999999961" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k1X-GH-Fob">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="33"/>
@@ -52,9 +52,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="PHG-mC-FUf"/>
+                        </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.81817404199999999" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Lzc-mC-Y1P" secondAttribute="bottom" id="0yn-nI-5Ls"/>
+                    <constraint firstAttribute="bottom" secondItem="V9j-dS-aVT" secondAttribute="bottom" id="4aC-Fb-3ZK"/>
+                    <constraint firstItem="V9j-dS-aVT" firstAttribute="top" secondItem="VHG-ii-hib" secondAttribute="top" constant="-40" id="Fki-UR-gHx"/>
+                    <constraint firstItem="V9j-dS-aVT" firstAttribute="leading" secondItem="VHG-ii-hib" secondAttribute="leading" id="M9l-GB-Tjv"/>
+                    <constraint firstAttribute="trailing" secondItem="Lzc-mC-Y1P" secondAttribute="trailing" id="WQh-Cc-fh3"/>
+                    <constraint firstAttribute="trailing" secondItem="V9j-dS-aVT" secondAttribute="trailing" id="yts-XB-p7b"/>
+                    <constraint firstItem="Lzc-mC-Y1P" firstAttribute="leading" secondItem="VHG-ii-hib" secondAttribute="leading" id="zt2-bj-Emc"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="commentsIcon" destination="pPM-mo-GpL" id="BKV-g2-927"/>
@@ -64,6 +76,7 @@
                 <outlet property="imageThumbnailView" destination="V9j-dS-aVT" id="j5a-8f-z7p"/>
                 <outlet property="titleLabel" destination="dAC-Ba-7T5" id="999-6a-CoF"/>
             </connections>
+            <point key="canvasLocation" x="258" y="747"/>
         </tableViewCell>
     </objects>
     <resources>
