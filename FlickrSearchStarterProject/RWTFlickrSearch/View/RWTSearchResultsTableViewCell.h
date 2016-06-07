@@ -4,7 +4,10 @@
 //
 
 @import UIKit;
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "CEReactiveView.h"
+#import "RWTFlickrPhoto.h"
 
-@interface RWTSearchResultsTableViewCell : UITableViewCell
+@interface RWTSearchResultsTableViewCell : UITableViewCell <CEReactiveView>
 
 @end
