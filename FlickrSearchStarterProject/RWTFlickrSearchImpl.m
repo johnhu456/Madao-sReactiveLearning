@@ -10,6 +10,7 @@
 #import "FHTool.h"
 #import "RWTFlickrSearchResults.h"
 #import "RWTFlickrPhoto.h"
+#import "RWTFlickrPhotoMetaData.h"
 
 #import <objectiveflickr/ObjectiveFlickr.h>
 #import <LinqToObjectiveC/NSArray+LinqExtensions.h>
@@ -55,6 +56,25 @@ static NSString *const kFlickrSharedSecret = @"0e2bd84b24295abf";
     }];
 }
 
+- (RACSignal *)flickrImageMetadata:(NSString *)photoId
+{
+    RACSignal *favorites = [self signalFromAPIMethod:@"flickr.photos.getFavorites" arguments:@{@"photo_id": photoId} transform:^id(NSDictionary *response) {
+        NSString *total = [response valueForKeyPath:@"photo.total"];
+        return total;
+    }];
+    
+    RACSignal *comments = [self signalFromAPIMethod:@"flickr.photos.getInfo" arguments:@{@"photo_id": photoId} transform:^id(NSDictionary *response) {
+        NSString *total = [response valueForKeyPath:@"photo.comments._text"];
+        return total;
+    }];
+    
+    return [RACSignal combineLatest:@[favorites,comments] reduce:^id(NSString *favorites,NSString *comments){
+        RWTFlickrPhotoMetaData *meta = [[RWTFlickrPhotoMetaData alloc] init];
+        meta.comments = [comments integerValue];
+        meta.favorites = [favorites integerValue];
+        return meta;
+    }];
+}
 - (RACSignal *)signalFromAPIMethod:(NSString *)method arguments:(NSDictionary *)args transform:(id (^)(NSDictionary *response))block
 {
     @WEAKSELF;
@@ -62,9 +82,13 @@ static NSString *const kFlickrSharedSecret = @"0e2bd84b24295abf";
         OFFlickrAPIRequest *flickrRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:self.flickrContext];
         flickrRequest.delegate = self;
         [self.requests addObject:flickrRequest];
+        @WEAK_OBJ(flickrRequest);
         RACSignal *successSingal = [self rac_signalForSelector:@selector(flickrAPIRequest:didCompleteWithResponse:) fromProtocol:@protocol(OFFlickrAPIRequestDelegate)];
-        
-        [[[successSingal map:^id(RACTuple *tuple) {
+    
+        [[[[successSingal filter:^BOOL(RACTuple *tuple) {
+            return tuple.first == flickrRequestWeak;
+        }]
+        map:^id(RACTuple *tuple) {
             return tuple.second;
         }]
         map:block]
