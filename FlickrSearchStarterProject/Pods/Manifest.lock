@@ -1,15 +1,16 @@
 PODS:
-  - LinqToObjectiveC (2.0.0)
+  - LinqToObjectiveC (2.1.0)
   - objectiveflickr (2.0.4)
-  - ReactiveCocoa (2.1.8):
-    - ReactiveCocoa/Core (= 2.1.8)
-    - ReactiveCocoa/no-arc (= 2.1.8)
-  - ReactiveCocoa/Core (2.1.8):
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
     - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.1.8)
-  - SDWebImage (3.6):
-    - SDWebImage/Core (= 3.6)
-  - SDWebImage/Core (3.6)
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
 
 DEPENDENCIES:
   - LinqToObjectiveC
@@ -18,10 +19,10 @@ DEPENDENCIES:
   - SDWebImage
 
 SPEC CHECKSUMS:
-  LinqToObjectiveC: 768f98c62d5b57cb6bdb7ab869e33d0a7a2da29c
+  LinqToObjectiveC: f0e40c137a458b6b9725c4c7b6a575c0c72e3aec
   objectiveflickr: aed169dae1eb5a5550ca78f7efd7ccde2e4c26e5
-  ReactiveCocoa: f89f2e009a87951b50321bf9feb958823fcc617e
-  SDWebImage: 472525955fc916c45464e58dc4eaa3287c158f2a
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
 
 PODFILE CHECKSUM: cfcdae334598b7b5960be2fcc099ac4f4443000d
 
