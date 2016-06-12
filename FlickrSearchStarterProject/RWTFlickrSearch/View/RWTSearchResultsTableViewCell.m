@@ -26,6 +26,7 @@
 
 - (void)bindViewModel:(id)viewModel
 {
+    self.layer.masksToBounds = YES;
     RWTFlickrPhoto *photo = viewModel;
     self.titleLabel.text = photo.title;
     self.imageThumbnailView.layer.masksToBounds = YES;

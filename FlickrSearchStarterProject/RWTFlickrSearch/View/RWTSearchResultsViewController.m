@@ -48,16 +48,10 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSArray *cells = [self.searchResultsTable visibleCells];
+    NSArray *cells = [self.self.searchResultsTable visibleCells];
     for (RWTSearchResultsTableViewCell *cell in cells) {
         CGFloat value;
-        if (self.lastContentOffSetY < self.searchResultsTable.contentOffset.y){
-            value = -40 + (cell.frame.origin.y - self.searchResultsTable.contentOffset.y)/5;
-        }else
-        {
-            value = (self.searchResultsTable.contentOffset.y - cell.frame.origin.y)/5;
-        }
-        self.lastContentOffSetY = self.searchResultsTable.contentOffset.y;
+        value = 40 * (cell.frame.origin.y - self.self.searchResultsTable.contentOffset.y)/667.f;
         [cell setParallax:value];
     }
 }

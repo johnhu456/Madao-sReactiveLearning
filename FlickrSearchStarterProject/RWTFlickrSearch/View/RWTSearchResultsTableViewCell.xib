@@ -18,12 +18,12 @@
                         <rect key="frame" x="142" y="81" width="37" height="37"/>
                     </activityIndicatorView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V9j-dS-aVT">
-                        <rect key="frame" x="0.0" y="-40" width="320" height="245"/>
+                        <rect key="frame" x="0.0" y="-40" width="320" height="285"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-mC-Y1P">
                         <rect key="frame" x="0.0" y="172" width="320" height="33"/>
                         <subviews>
-                            <view alpha="0.49999999999999961" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k1X-GH-Fob">
+                            <view alpha="0.49999999999999961" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k1X-GH-Fob">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="33"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -53,14 +53,18 @@
                             </label>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="k1X-GH-Fob" secondAttribute="trailing" id="5oS-gT-sNM"/>
+                            <constraint firstAttribute="bottom" secondItem="k1X-GH-Fob" secondAttribute="bottom" id="K23-hk-YFM"/>
                             <constraint firstAttribute="height" constant="33" id="PHG-mC-FUf"/>
+                            <constraint firstItem="k1X-GH-Fob" firstAttribute="top" secondItem="Lzc-mC-Y1P" secondAttribute="top" id="aX2-c6-pvn"/>
+                            <constraint firstItem="k1X-GH-Fob" firstAttribute="leading" secondItem="Lzc-mC-Y1P" secondAttribute="leading" id="ez1-23-16L"/>
                         </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.81817404199999999" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="Lzc-mC-Y1P" secondAttribute="bottom" id="0yn-nI-5Ls"/>
-                    <constraint firstAttribute="bottom" secondItem="V9j-dS-aVT" secondAttribute="bottom" id="4aC-Fb-3ZK"/>
+                    <constraint firstAttribute="bottom" secondItem="V9j-dS-aVT" secondAttribute="bottom" constant="-40" id="4aC-Fb-3ZK"/>
                     <constraint firstItem="V9j-dS-aVT" firstAttribute="top" secondItem="VHG-ii-hib" secondAttribute="top" constant="-40" id="Fki-UR-gHx"/>
                     <constraint firstItem="V9j-dS-aVT" firstAttribute="leading" secondItem="VHG-ii-hib" secondAttribute="leading" id="M9l-GB-Tjv"/>
                     <constraint firstAttribute="trailing" secondItem="Lzc-mC-Y1P" secondAttribute="trailing" id="WQh-Cc-fh3"/>
@@ -76,7 +80,7 @@
                 <outlet property="imageThumbnailView" destination="V9j-dS-aVT" id="j5a-8f-z7p"/>
                 <outlet property="titleLabel" destination="dAC-Ba-7T5" id="999-6a-CoF"/>
             </connections>
-            <point key="canvasLocation" x="258" y="747"/>
+            <point key="canvasLocation" x="205" y="748"/>
         </tableViewCell>
     </objects>
     <resources>
