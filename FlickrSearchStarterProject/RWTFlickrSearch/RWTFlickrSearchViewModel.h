@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) NSString *title;
 
+@property (nonatomic, strong) NSMutableArray *recentSearches;
+
 @property (nonatomic, strong) RACCommand *excuteSearch;
 
 - (instancetype)initWithServices:(id<RWTViewModelServices>)services;

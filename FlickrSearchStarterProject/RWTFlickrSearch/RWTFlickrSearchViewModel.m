@@ -8,6 +8,7 @@
 
 #import "RWTFlickrSearchViewModel.h"
 #import "RWTFlickrSearchResultsViewModel.h"
+#import "RWTDataManager.h"
 #import "FHTool.h"
 
 @interface RWTFlickrSearchViewModel()
@@ -17,6 +18,11 @@
 @end
 
 @implementation RWTFlickrSearchViewModel
+
+- (RWTDataManager *)dataManager
+{
+    return [RWTDataManager sharedManager];
+}
 
 - (instancetype)initWithServices:(id<RWTViewModelServices>)services
 {
@@ -40,13 +46,26 @@
     self.excuteSearch = [[RACCommand alloc] initWithEnabled:validSearchSignal signalBlock:^RACSignal *(id input) {
         return [self excuteSearchSignal];
     }];
+    
+    self.recentSearches = [[NSMutableArray alloc] initWithArray:[RWTDataManager getRecentSearches]];
+}
+
+- (void)addRecentSearch:(RWTFlickrRecentSearchResults *)result
+{
+    [self.recentSearches addObject:result];
+    NSLog(@"%@",self.recentSearches);
+    [[self dataManager] writeRecentSearch:result];
 }
 
 - (RACSignal *)excuteSearchSignal{
     @WEAKSELF;
-    return [[[self.services getFlickrSearchService] flickrSearchSignal:self.searchText] doNext:^(id result) {
+    return [[[[self.services getFlickrSearchService] flickrSearchSignal:self.searchText] doNext:^(id result) {
         RWTFlickrSearchResultsViewModel *resultsViewModel = [[RWTFlickrSearchResultsViewModel alloc] initWithSearchResults:result services:weakSelf.services];
         [weakSelf.services pushViewModel:resultsViewModel];
+    }] doNext:^(id result) {
+        //处理最近搜索相关
+        RWTFlickrRecentSearchResults *newRecent = [[RWTFlickrRecentSearchResults alloc] initWithResult:result];
+        [self addRecentSearch:newRecent];
     }];
 }
 @end

@@ -5,9 +5,9 @@
 
 #import "RWTFlickrSearchViewController.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import "CETableViewBindingHelper.h"
 
-
-@interface RWTFlickrSearchViewController ()
+@interface RWTFlickrSearchViewController ()<UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
 @property (weak, nonatomic) RWTFlickrSearchViewModel *viewModel;
 
+@property (nonatomic, strong) CETableViewBindingHelper *bindingHelper;
 @end
 
 @implementation RWTFlickrSearchViewController
@@ -44,6 +45,11 @@
     [[self.searchButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         [self.searchTextField resignFirstResponder];
     }];
+    
+    NSLog(@"%@",self.viewModel.recentSearches);
+    UINib *nib = [UINib nibWithNibName:@"RWTRecentSearchItemTableViewCell" bundle:nil];
+    self.bindingHelper = [CETableViewBindingHelper bindingHelperForTableView:self.searchHistoryTable sourceSignal:RACObserve(self.viewModel, recentSearches) selectionCommand:nil templateCell:nib];
+    self.bindingHelper.delegate = self;
 }
 
 @end

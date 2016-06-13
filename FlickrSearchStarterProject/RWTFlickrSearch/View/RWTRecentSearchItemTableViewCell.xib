@@ -14,32 +14,57 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" alpha="0.5499999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9KX-Yp-LqP">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="139"/>
+                    <imageView userInteractionEnabled="NO" alpha="0.5499999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9KX-Yp-LqP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
                     </imageView>
-                    <view alpha="0.75000000000000022" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l2E-QG-zys">
-                        <rect key="frame" x="0.0" y="35" width="320" height="33"/>
+                    <view alpha="0.75000000000000022" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l2E-QG-zys">
+                        <rect key="frame" x="0.0" y="33" width="320" height="33"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="Sqh-gI-b8R"/>
+                        </constraints>
                     </view>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgC-9Q-0TK">
-                        <rect key="frame" x="20" y="41" width="205" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgC-9Q-0TK">
+                        <rect key="frame" x="20" y="41" width="150" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="3bZ-jJ-WgW"/>
+                            <constraint firstAttribute="width" constant="150" id="YJo-xZ-vLM"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0E-uq-Xp7">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0E-uq-Xp7">
                         <rect key="frame" x="193" y="41" width="89" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="rAi-kB-Cwm"/>
+                            <constraint firstAttribute="width" constant="89" id="uss-DH-BfA"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="9KX-Yp-LqP" firstAttribute="top" secondItem="qib-4F-YwE" secondAttribute="top" id="7Dg-Bk-5cm"/>
+                    <constraint firstAttribute="bottom" secondItem="l2E-QG-zys" secondAttribute="bottom" constant="1" id="7ne-Sz-Jq6"/>
+                    <constraint firstAttribute="trailing" secondItem="l2E-QG-zys" secondAttribute="trailing" id="A0Q-b7-JfT"/>
+                    <constraint firstItem="bgC-9Q-0TK" firstAttribute="leading" secondItem="qib-4F-YwE" secondAttribute="leading" constant="20" id="O7Q-hd-eqa"/>
+                    <constraint firstAttribute="bottom" secondItem="9KX-Yp-LqP" secondAttribute="bottom" id="XOn-6n-Zag"/>
+                    <constraint firstAttribute="trailing" secondItem="9KX-Yp-LqP" secondAttribute="trailing" id="aFj-n5-qW9"/>
+                    <constraint firstItem="l2E-QG-zys" firstAttribute="leading" secondItem="qib-4F-YwE" secondAttribute="leading" id="cD7-Tw-GtN"/>
+                    <constraint firstAttribute="trailing" secondItem="J0E-uq-Xp7" secondAttribute="trailing" constant="38" id="gKX-py-Ug7"/>
+                    <constraint firstAttribute="bottom" secondItem="bgC-9Q-0TK" secondAttribute="bottom" constant="5" id="lZ0-jX-qUK"/>
+                    <constraint firstAttribute="bottom" secondItem="J0E-uq-Xp7" secondAttribute="bottom" constant="5" id="pSL-ma-8hv"/>
+                    <constraint firstItem="9KX-Yp-LqP" firstAttribute="leading" secondItem="qib-4F-YwE" secondAttribute="leading" id="uan-0y-sw5"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="searchLabel" destination="bgC-9Q-0TK" id="chA-Nn-J8B"/>
                 <outlet property="thumbnailImage" destination="9KX-Yp-LqP" id="QDh-k4-E0b"/>
                 <outlet property="totalResultsLabel" destination="J0E-uq-Xp7" id="Ug2-gI-jo5"/>
             </connections>
+            <point key="canvasLocation" x="545" y="601"/>
         </tableViewCell>
     </objects>
 </document>
