@@ -12,6 +12,6 @@
 
 - (NSString *)description
 {
-    return self.title;
+    return [NSString stringWithFormat:@"%@:favorites:%lu,comments:%lu",self.title,self.favorites,self.comments];
 }
 @end

@@ -8,18 +8,17 @@
 
 #import "RWTFlickrSearchResultsViewModel.h"
 #import "RWTFlickrPhoto.h"
+#import <LinqToObjectiveC.h>
+#import "RWTSearchResultsItemViweModel.h"
 
 @implementation RWTFlickrSearchResultsViewModel
 
 - (instancetype)initWithSearchResults:(RWTFlickrSearchResults *)results services:(id<RWTViewModelServices>)services
 {
     if (self = [super init]) {
-        _searchResults = results.photos;
         _title = results.searchString;
-        RWTFlickrPhoto *photo = [_searchResults firstObject];
-        RACSignal *metaDataSignal = [[services getFlickrSearchService] flickrImageMetadata:photo.identifier];
-        [metaDataSignal subscribeNext:^(id x) {
-            NSLog(@"%@",x);
+        _searchResults = [results.photos linq_select:^id(RWTFlickrPhoto *photo) {
+            return [[RWTSearchResultsItemViweModel alloc] initWithPhoto:photo services:services];
         }];
     }
     return self;

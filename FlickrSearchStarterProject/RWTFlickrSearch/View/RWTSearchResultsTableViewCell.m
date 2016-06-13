@@ -5,6 +5,8 @@
 
 #import "RWTSearchResultsTableViewCell.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import "RWTSearchResultsItemViweModel.h"
+#import "FHTool.h"
 
 @interface RWTSearchResultsTableViewCell ()
 
@@ -26,12 +28,24 @@
 
 - (void)bindViewModel:(id)viewModel
 {
+    @WEAKSELF;
+    RWTSearchResultsItemViweModel *photoViewModel = viewModel;
+    
+    [RACObserve(photoViewModel, favorites) subscribeNext:^(NSNumber *favorites) {
+        weakSelf.favouritesLabel.text = [favorites stringValue];
+    }];
+    
+    [RACObserve(photoViewModel, comments) subscribeNext:^(NSNumber *comments) {
+        weakSelf.commentsLabel.text = [comments stringValue];
+    }];
+    
+    photoViewModel.isVisible = YES;
     self.layer.masksToBounds = YES;
     RWTFlickrPhoto *photo = viewModel;
     self.titleLabel.text = photo.title;
     self.imageThumbnailView.layer.masksToBounds = YES;
     self.imageThumbnailView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.imageThumbnailView setImageWithURL:photo.url];
+    [self.imageThumbnailView sd_setImageWithURL:photo.url];
 }
 
 @end

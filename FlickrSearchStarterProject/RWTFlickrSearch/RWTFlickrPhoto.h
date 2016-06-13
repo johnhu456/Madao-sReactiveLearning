@@ -16,4 +16,7 @@
 
 @property (nonatomic, strong) NSString *identifier;
 
+@property (nonatomic, assign) NSUInteger favorites;
+
+@property (nonatomic, assign) NSUInteger comments;
 @end

@@ -85,7 +85,8 @@ static NSString *const kFlickrSharedSecret = @"0e2bd84b24295abf";
         @WEAK_OBJ(flickrRequest);
         RACSignal *successSingal = [self rac_signalForSelector:@selector(flickrAPIRequest:didCompleteWithResponse:) fromProtocol:@protocol(OFFlickrAPIRequestDelegate)];
     
-        [[[[successSingal filter:^BOOL(RACTuple *tuple) {
+        [[[[successSingal
+            filter:^BOOL(RACTuple *tuple) {
             return tuple.first == flickrRequestWeak;
         }]
         map:^id(RACTuple *tuple) {
