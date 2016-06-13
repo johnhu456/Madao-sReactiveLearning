@@ -34,12 +34,18 @@
 
 - (void)initialize{
     @WEAKSELF;
-    [[RACObserve(self, isVisible) filter:^BOOL(NSNumber *isVisible) {
-        return [weakSelf isVisible];
-    }] subscribeNext:^(id x) {
+
+    RACSignal *visibleSignal = [RACObserve(self, isVisible) skip:1];
+    RACSignal *showSignal = [visibleSignal filter:^BOOL(NSNumber *visible) {
+        return [visible boolValue];
+    }];
+    RACSignal *hideSignal = [visibleSignal filter:^BOOL(NSNumber *visible) {
+        return ![visible boolValue];
+    }];
+    [[[showSignal delay:1.0f] takeUntil:hideSignal] subscribeNext:^(id x) {
         [[[weakSelf.services getFlickrSearchService]flickrImageMetadata:self.photo.identifier] subscribeNext:^(RWTFlickrPhotoMetaData *metadata) {
-            weakSelf.favorites = @(metadata.favorites);
-            weakSelf.comments = @(metadata.comments);
+                        weakSelf.favorites = @(metadata.favorites);
+                        weakSelf.comments = @(metadata.comments);
         }];
     }];
 }

@@ -40,6 +40,12 @@
     }];
     
     photoViewModel.isVisible = YES;
+    @WEAK_OBJ(photoViewModel);
+    [self.rac_prepareForReuseSignal subscribeNext:^(id x) {
+        photoViewModelWeak.isVisible = NO;
+        weakSelf.favouritesLabel.text = @"0";
+        weakSelf.commentsLabel.text = @"0";
+    }];
     self.layer.masksToBounds = YES;
     RWTFlickrPhoto *photo = viewModel;
     self.titleLabel.text = photo.title;
