@@ -37,19 +37,38 @@
 }
 
 - (void)bindViewModel{
+    @WEAKSELF;
     self.title = self.viewModel.title;
     RAC(self.viewModel,searchText) = self.searchTextField.rac_textSignal;
     RAC([UIApplication sharedApplication],networkActivityIndicatorVisible) = self.viewModel.excuteSearch.executing;
     RAC(self.loadingIndicator,hidden) = [self.viewModel.excuteSearch.executing not];
     self.searchButton.rac_command  = self.viewModel.excuteSearch;
     [[self.searchButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        [self.searchTextField resignFirstResponder];
+        [weakSelf.searchTextField resignFirstResponder];
     }];
     
-    NSLog(@"%@",self.viewModel.recentSearches);
+    [[[self.searchTextField rac_signalForControlEvents:UIControlEventEditingDidEndOnExit] filter:^BOOL(UITextField *textField) {
+        return textField.text.length;
+    }]
+     subscribeNext:^(id x) {
+        [[weakSelf.viewModel excuteSearch] execute:nil];
+    }];
+    
+    RACCommand *clickCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        RWTFlickrRecentSearchResults *result = input;
+        weakSelf.viewModel.searchText = result.searchString;
+        return [[weakSelf.viewModel excuteSearch] execute:nil];
+    }];
+    
     UINib *nib = [UINib nibWithNibName:@"RWTRecentSearchItemTableViewCell" bundle:nil];
-    self.bindingHelper = [CETableViewBindingHelper bindingHelperForTableView:self.searchHistoryTable sourceSignal:RACObserve(self.viewModel, recentSearches) selectionCommand:nil templateCell:nib];
+    
+    RACSignal *dataSignal = RACObserve(self.viewModel, recentSearches);
+    [dataSignal subscribeNext:^(id x) {
+        NSLog(@"========%@",x);
+    }];
+    self.bindingHelper = [CETableViewBindingHelper bindingHelperForTableView:self.searchHistoryTable sourceSignal:dataSignal selectionCommand:clickCommand templateCell:nib];
     self.bindingHelper.delegate = self;
 }
+
 
 @end

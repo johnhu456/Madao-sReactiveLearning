@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "RWTViewModelServices.h"
+#import "RWTDataManager.h"
 
 @interface RWTFlickrSearchViewModel : NSObject
 

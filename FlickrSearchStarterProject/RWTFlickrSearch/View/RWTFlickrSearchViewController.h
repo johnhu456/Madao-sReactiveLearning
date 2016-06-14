@@ -6,6 +6,7 @@
 @import UIKit;
 
 #import "RWTFlickrSearchViewModel.h"
+#import "FHTool.h"
 
 @interface RWTFlickrSearchViewController : UIViewController
 

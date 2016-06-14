@@ -8,7 +8,6 @@
 
 #import "RWTFlickrSearchViewModel.h"
 #import "RWTFlickrSearchResultsViewModel.h"
-#import "RWTDataManager.h"
 #import "FHTool.h"
 
 @interface RWTFlickrSearchViewModel()
@@ -52,8 +51,8 @@
 
 - (void)addRecentSearch:(RWTFlickrRecentSearchResults *)result
 {
-    [self.recentSearches addObject:result];
-    NSLog(@"%@",self.recentSearches);
+    [self.recentSearches insertObject:result atIndex:0];
+    self.recentSearches = [self.recentSearches mutableCopy];
     [[self dataManager] writeRecentSearch:result];
 }
 
@@ -65,7 +64,7 @@
     }] doNext:^(id result) {
         //处理最近搜索相关
         RWTFlickrRecentSearchResults *newRecent = [[RWTFlickrRecentSearchResults alloc] initWithResult:result];
-        [self addRecentSearch:newRecent];
+        [weakSelf addRecentSearch:newRecent];
     }];
 }
 @end

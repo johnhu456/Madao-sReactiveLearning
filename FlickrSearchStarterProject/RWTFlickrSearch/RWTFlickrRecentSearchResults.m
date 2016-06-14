@@ -34,10 +34,26 @@
 
 -(NSDictionary *)getDictionaryData
 {
+    NSNumber *searchCounts;
+    if (_totalCounts == 0) {
+        searchCounts = [NSNumber numberWithInteger:0];
+    }
+    else
+    {
+        searchCounts = [NSNumber numberWithInteger:_totalCounts];
+    }
+    NSString *urlString;
+    if (_firstPhotoURL == nil) {
+        urlString = @"";
+    }
+    else
+    {
+        urlString = [_firstPhotoURL absoluteString];
+    }
     return @{
              @"searchString":_searchString,
-             @"totalCounts":@(_totalCounts),
-             @"firstPhotoUrl":[_firstPhotoURL absoluteString]
+             @"totalCounts":searchCounts,
+             @"firstPhotoUrl":urlString
              };
 }
 
